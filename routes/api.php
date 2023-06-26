@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BannerCampaignController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\OrderController;
 use App\Http\Middleware\AdminMiddleware;
@@ -42,3 +42,5 @@ Route::middleware([JwtMiddleware::class])->group(function () {
         Route::get('/{id}', [OrderController::class, 'getDetail']);
     });
 });
+
+Route::get('/public/images/{filename}', [ImageController::class, 'getImage']);
