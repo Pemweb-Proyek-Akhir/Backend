@@ -91,8 +91,49 @@ class CampaignController extends Controller
      */
     public function show(Campaign $campaign)
     {
-        //
-        return $campaign;
+        try {
+            $campaigns = Campaign::select('campaigns.id', 'campaigns.name', 'campaigns.target', 'campaigns.status', 'campaigns.description', 'banner_campaigns.url')
+                ->leftJoin('banner_campaigns', 'campaigns.id', '=', 'banner_campaigns.campaign_id')
+                ->get();
+
+            $combinedCampaigns = [];
+            foreach ($campaigns as $campaign) {
+                $id = $campaign->id;
+                // if ($campaign->url == null) {
+                //     continue;
+                // }
+
+                if (!isset($combinedCampaigns[$id])) {
+                    if ($campaign->url != null) {
+                        $combinedCampaigns[$id] = [
+                            'id' => $id,
+                            'name' => $campaign->name,
+                            'target' => $campaign->target,
+                            'status' => $campaign->status,
+                            'description' => $campaign->description,
+                            'thumbnail' => [$campaign->url]
+                        ];
+                    } else {
+                        $combinedCampaigns[$id] = [
+                            'id' => $id,
+                            'name' => $campaign->name,
+                            'target' => $campaign->target,
+                            'status' => $campaign->status,
+                            'description' => $campaign->description,
+                            "thumbnail" => []
+                        ];
+                    }
+                } else {
+                    if ($campaign->url != null) {
+                        $combinedCampaigns[$id]['thumbnail'][] = $campaign->url;
+                    }
+                }
+            }
+
+            return ResponseHelper::baseResponse("Success get all campaigns", 200, array_values($combinedCampaigns));
+        } catch (Exception $err) {
+            return ResponseHelper::err($err->getMessage());
+        }
     }
 
     /**
