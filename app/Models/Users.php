@@ -11,5 +11,5 @@ class Users extends Model implements Authenticatable
 {
     use HasFactory, AuthenticableTrait;
 
-    protected $fillable = ['name', 'email', 'password', 'user_type'];
+    protected $fillable = ['name', 'email', 'password', 'user_type', 'profile_picture'];
 }

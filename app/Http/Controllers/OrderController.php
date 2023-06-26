@@ -56,10 +56,9 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Order $order, $id)
+    public function show(Order $order)
     {
         try {
-            dd($id);
             return ResponseHelper::baseResponse("Success retrieve data", 200, $order::all());
         } catch (Exception $err) {
             return ResponseHelper::err($err->getMessage());
