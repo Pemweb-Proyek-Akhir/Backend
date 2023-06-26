@@ -99,9 +99,6 @@ class CampaignController extends Controller
             $combinedCampaigns = [];
             foreach ($campaigns as $campaign) {
                 $id = $campaign->id;
-                // if ($campaign->url == null) {
-                //     continue;
-                // }
 
                 if (!isset($combinedCampaigns[$id])) {
                     if ($campaign->url != null) {

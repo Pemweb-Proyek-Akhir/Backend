@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BannerCampaignController;
 use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\OrderController;
 use App\Http\Middleware\Cors;
 use App\Http\Middleware\JwtMiddleware;
 use Illuminate\Http\Request;
@@ -34,7 +35,7 @@ Route::middleware([JwtMiddleware::class])->group(function () {
         Route::post('/', [CampaignController::class, 'store']);
     });
 
-    Route::group(['prefix' => 'banner'], function () {
-        Route::post("/{id}", [BannerCampaignController::class, "store"]);
+    Route::group(['prefix' => 'orders'], function () {
+        Route::post('/', [OrderController::class, 'store']);
     });
 });
