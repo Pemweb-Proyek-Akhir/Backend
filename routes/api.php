@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BannerCampaignController;
+use App\Http\Controllers\CampaignController;
 use App\Http\Middleware\Cors;
+use App\Http\Middleware\JwtMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +25,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 // Auth
-Route::middleware([Cors::class])->group(function () {
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::middleware([JwtMiddleware::class])->group(function () {
+    Route::group(['prefix' => "campaign"], function () {
+        Route::get('/', [CampaignController::class, 'show']);
+        Route::post('/', [CampaignController::class, 'store']);
+    });
+
+    Route::group(['prefix' => 'banner'], function () {
+        Route::post("/{id}", [BannerCampaignController::class, "store"]);
+    });
 });
