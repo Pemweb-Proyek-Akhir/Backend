@@ -56,9 +56,27 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Order $order)
+    public function show(Order $order, $id)
     {
-        //
+        try {
+            dd($id);
+            return ResponseHelper::baseResponse("Success retrieve data", 200, $order::all());
+        } catch (Exception $err) {
+            return ResponseHelper::err($err->getMessage());
+        }
+    }
+
+    public function getDetail(Order $order, $id)
+    {
+        try {
+            $data = $order::find($id);
+            if ($data == null) {
+                return ResponseHelper::err('ID ' . $id . ' is invalid');
+            }
+            return ResponseHelper::baseResponse("Success retrieve data", 200, $order::find($id));
+        } catch (Exception $err) {
+            return ResponseHelper::err($err->getMessage());
+        }
     }
 
     /**
