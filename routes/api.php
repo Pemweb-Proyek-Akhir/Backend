@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UsersController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\Cors;
 use App\Http\Middleware\JwtMiddleware;
@@ -40,6 +41,11 @@ Route::middleware([JwtMiddleware::class])->group(function () {
         Route::post('/', [OrderController::class, 'store']);
         Route::middleware([AdminMiddleware::class])->get('/', [OrderController::class, 'show']);
         Route::get('/{id}', [OrderController::class, 'getDetail']);
+    });
+
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('/', [UsersController::class, 'index']);
+        Route::post('/profile-photo', [UsersController::class, 'updateProfilePhoto']);
     });
 });
 
