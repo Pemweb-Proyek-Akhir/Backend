@@ -9,6 +9,11 @@ class Package extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'price',
+    ];
+
     public function orders()
     {
         return $this->hasMany(Order::class);

@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ImageController;
-use App\Http\Controllers\CampaignController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\UsersController;
-use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\AuthController as AuthController;
+use App\Http\Controllers\Customer\ImageController as ImageController;
+use App\Http\Controllers\Customer\CampaignController as CampaignController;
+use App\Http\Controllers\Customer\OrderController as OrderController;
+use App\Http\Controllers\Customer\UsersController as UsersController;
+use App\Http\Middleware\AdminMiddleware as AdminMiddleware;
 use App\Http\Middleware\Cors;
 use App\Http\Middleware\JwtMiddleware;
 use Illuminate\Http\Request;
